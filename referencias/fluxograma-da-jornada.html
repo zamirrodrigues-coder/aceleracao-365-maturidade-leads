@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jornada de Maturidade</title>
+<style>
+  html, body { margin: 0; background: #ffffff; }
+  body { font-family: system-ui, "Segoe UI", Arial, sans-serif; color: #0f172a; }
+  .folha { max-width: 1680px; margin: 0 auto; padding: 8px 12px 4px; }
+  svg { display: block; width: 100%; height: auto; max-height: calc(100vh - 34px); }
+  .rodape { font-size: 12px; color: #64748b; padding: 2px 4px 6px; }
+  text { font-family: system-ui, "Segoe UI", Arial, sans-serif; }
+  .titulo { font-size: 21px; font-weight: 700; fill: #0f172a; }
+  .sub { font-size: 13.5px; fill: #475569; }
+  .nota { font-size: 12.5px; fill: #475569; }
+  .notaforte { font-size: 12.5px; font-weight: 700; fill: #1e3a8a; }
+  .caixa { fill: #dbeafe; stroke: #60a5fa; stroke-width: 1.4; }
+  .apoio { fill: #f1f5f9; stroke: #94a3b8; stroke-width: 1.4; }
+  .grupo { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.2; }
+  .pilula { fill: #0f172a; }
+  .losango { fill: #2563eb; }
+  .nome { font-size: 14px; font-weight: 700; fill: #0f172a; text-anchor: middle; }
+  .prova { font-size: 11.5px; fill: #334155; text-anchor: middle; }
+  .branco { fill: #ffffff; font-weight: 700; text-anchor: middle; }
+  .num { font-size: 13px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+  .bola { fill: #2563eb; }
+  .nivel { font-size: 12.5px; font-weight: 700; fill: #1e3a8a; text-anchor: middle; }
+  .seta { stroke: #16a34a; stroke-width: 2.2; fill: none; marker-end: url(#ponta); }
+  .volta { stroke: #16a34a; stroke-width: 2.2; fill: none; stroke-dasharray: 7 5; marker-end: url(#ponta); }
+  .rotulo { font-size: 12.5px; font-weight: 700; fill: #166534; }
+  .risco { stroke: #94a3b8; stroke-width: 1.2; }
+</style>
+</head>
+<body>
+<div class="folha">
+<svg viewBox="0 0 1680 800" role="img" aria-label="Fluxograma da jornada de maturidade da geração de leads">
+  <defs>
+    <marker id="ponta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/>
+    </marker>
+  </defs>
+
+  <text class="titulo" x="30" y="30">Jornada de Maturidade da Geração de Leads</text>
+  <text class="sub" x="30" y="52">Toda seta leva a uma etapa, volta a um ponto ou encerra o ciclo.</text>
+  <text class="notaforte" x="176" y="78">Nível: até onde a rota está de pé</text>
+  <text class="nota" x="1572" y="78" text-anchor="end">Um caminho por vez. Em cada etapa: aprende, escolhe a frase que descreve a empresa e vê a leitura.</text>
+
+  <!-- O caminho: faixa de nível e as oito etapas -->
+  <rect class="grupo" x="176" y="86" width="1396" height="146" rx="12"/>
+
+  <rect x="190" y="94" width="150" height="24" rx="5" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text class="nivel" x="265" y="111">1 · Improviso</text>
+  <rect x="364" y="94" width="150" height="24" rx="5" fill="#dbeafe" stroke="#93c5fd"/>
+  <text class="nivel" x="439" y="111">2 · Direção</text>
+  <rect x="538" y="94" width="324" height="24" rx="5" fill="#bfdbfe" stroke="#93c5fd"/>
+  <text class="nivel" x="700" y="111">3 · Presença</text>
+  <rect x="886" y="94" width="498" height="24" rx="5" fill="#93c5fd" stroke="#60a5fa"/>
+  <text class="nivel" x="1135" y="111">4 · Captação</text>
+  <rect x="1408" y="94" width="150" height="24" rx="5" fill="#60a5fa" stroke="#3b82f6"/>
+  <text class="nivel" x="1483" y="111">5 · Gestão</text>
+
+  <g class="risco">
+    <line x1="265" y1="118" x2="265" y2="128"/><line x1="439" y1="118" x2="439" y2="128"/>
+    <line x1="613" y1="118" x2="613" y2="128"/><line x1="787" y1="118" x2="787" y2="128"/>
+    <line x1="961" y1="118" x2="961" y2="128"/><line x1="1135" y1="118" x2="1135" y2="128"/>
+    <line x1="1309" y1="118" x2="1309" y2="128"/><line x1="1483" y1="118" x2="1483" y2="128"/>
+  </g>
+
+  <rect class="pilula" x="30" y="151" width="120" height="46" rx="23"/>
+  <text class="branco" x="90" y="180" font-size="15">Início</text>
+  <path class="seta" d="M150,174 L188,174"/>
+
+  <rect class="caixa" x="190" y="128" width="150" height="92" rx="8"/>
+  <circle class="bola" cx="208" cy="146" r="12"/><text class="num" x="208" y="150.5">1</text>
+  <text class="nome" x="265" y="172">Objetivo</text>
+  <text class="prova" x="265" y="192">prova: meta escrita</text>
+  <path class="seta" d="M340,174 L362,174"/>
+
+  <rect class="caixa" x="364" y="128" width="150" height="92" rx="8"/>
+  <circle class="bola" cx="382" cy="146" r="12"/><text class="num" x="382" y="150.5">2</text>
+  <text class="nome" x="439" y="172">Pilar</text>
+  <text class="prova" x="439" y="192">prova: levantamento</text>
+  <text class="prova" x="439" y="207">da origem ou CRM</text>
+  <path class="seta" d="M514,174 L536,174"/>
+
+  <rect class="caixa" x="538" y="128" width="150" height="92" rx="8"/>
+  <circle class="bola" cx="556" cy="146" r="12"/><text class="num" x="556" y="150.5">3</text>
+  <text class="nome" x="613" y="172">Canal</text>
+  <text class="prova" x="613" y="192">prova: canal de pé,</text>
+  <text class="prova" x="613" y="207">com rotina</text>
+  <path class="seta" d="M688,174 L710,174"/>
+
+  <rect class="caixa" x="712" y="128" width="150" height="92" rx="8"/>
+  <circle class="bola" cx="730" cy="146" r="12"/><text class="num" x="730" y="150.5">4</text>
+  <text class="nome" x="787" y="172">Conversão</text>
+  <text class="prova" x="787" y="192">prova: porta principal</text>
+  <text class="prova" x="787" y="207">testada no celular</text>
+  <path class="seta" d="M862,174 L884,174"/>
+
+  <rect class="caixa" x="886" y="128" width="150" height="92" rx="8"/>
+  <circle class="bola" cx="904" cy="146" r="12"/><text class="num" x="904" y="150.5">5</text>
+  <text class="nome" x="961" y="172">Lead</text>
+  <text class="prova" x="961" y="192">prova: todo contato</text>
+  <text class="prova" x="961" y="207">no CRM, com origem</text>
+  <path class="seta" d="M1036,174 L1058,174"/>
+
+  <rect class="caixa" x="1060" y="128" width="150" height="92" rx="8"/>
+  <circle class="bola" cx="1078" cy="146" r="12"/><text class="num" x="1078" y="150.5">6</text>
+  <text class="nome" x="1135" y="172">Relacionamento</text>
+  <text class="prova" x="1135" y="192">prova: cadência no CRM;</text>
+  <text class="prova" x="1135" y="207">vira MQL aqui</text>
+  <path class="seta" d="M1210,174 L1232,174"/>
+
+  <rect class="caixa" x="1234" y="128" width="150" height="92" rx="8"/>
+  <circle class="bola" cx="1252" cy="146" r="12"/><text class="num" x="1252" y="150.5">7</text>
+  <text class="nome" x="1309" y="172">Lead Qualificado</text>
+  <text class="prova" x="1309" y="192">prova: critério de MQL</text>
+  <text class="prova" x="1309" y="207">e SQL; vira SQL aqui</text>
+  <path class="seta" d="M1384,174 L1406,174"/>
+
+  <rect class="caixa" x="1408" y="128" width="150" height="92" rx="8"/>
+  <circle class="bola" cx="1426" cy="146" r="12"/><text class="num" x="1426" y="150.5">8</text>
+  <text class="nome" x="1483" y="172">Medir e Ajustar</text>
+  <text class="prova" x="1483" y="192">prova: relatório do CRM</text>
+  <text class="prova" x="1483" y="207">por canal, com decisão</text>
+
+  <!-- Resposta "Não sei": conferir e voltar à mesma etapa -->
+  <rect class="apoio" x="720" y="264" width="260" height="50" rx="8"/>
+  <text class="nome" x="850" y="285" font-size="13.5">Resposta "Não Sei"</text>
+  <text class="prova" x="850" y="302">conferir no negócio</text>
+  <path class="seta" d="M780,232 L780,262"/>
+  <text class="rotulo" x="772" y="252" text-anchor="end">em qualquer etapa</text>
+  <path class="volta" d="M920,264 L920,234"/>
+  <text class="rotulo" x="928" y="252">volta à mesma etapa</text>
+
+  <!-- Da Etapa 8 ao fim do caminho -->
+  <path class="seta" d="M1483,220 L1483,438"/>
+
+  <!-- Depois do caminho -->
+  <rect class="caixa" x="1390" y="440" width="186" height="92" rx="8"/>
+  <text class="nome" x="1483" y="464">Fim do Caminho</text>
+  <text class="prova" x="1483" y="484">nível declarado, mapa das</text>
+  <text class="prova" x="1483" y="499">oito etapas, próximo passo</text>
+  <text class="prova" x="1483" y="514">e pontos para o mentor</text>
+  <path class="seta" d="M1390,486 L1364,486"/>
+
+  <polygon class="losango" points="1266,418 1362,486 1266,554 1170,486"/>
+  <text class="branco" x="1266" y="482" font-size="13">Percorrer</text>
+  <text class="branco" x="1266" y="499" font-size="13">Outro Caminho?</text>
+  <path class="volta" d="M1266,418 L1266,350 L439,350 L439,222"/>
+  <text class="rotulo" x="1276" y="402">Sim</text>
+  <text class="rotulo" x="850" y="343" text-anchor="middle">volta ao Pilar, com o caminho feito marcado</text>
+  <path class="seta" d="M1170,486 L1138,486"/>
+  <text class="rotulo" x="1153" y="476" text-anchor="middle">Não</text>
+
+  <rect class="caixa" x="946" y="440" width="190" height="92" rx="8"/>
+  <text class="nome" x="1041" y="470">Fluxo Adequado</text>
+  <text class="prova" x="1041" y="492">caminhos lado a lado</text>
+  <text class="prova" x="1041" y="507">e rota proposta</text>
+  <path class="seta" d="M946,486 L908,486"/>
+
+  <rect class="caixa" x="706" y="440" width="200" height="92" rx="8"/>
+  <text class="nome" x="806" y="470" font-size="13.5">Atendimento com o Mentor</text>
+  <text class="prova" x="806" y="492">confirma o nível pelas provas</text>
+  <text class="prova" x="806" y="507">e combina a rota</text>
+  <path class="seta" d="M706,486 L668,486"/>
+
+  <rect class="caixa" x="506" y="440" width="160" height="92" rx="8"/>
+  <text class="nome" x="586" y="470">Execução</text>
+  <text class="prova" x="586" y="492">faz o próximo passo</text>
+  <text class="prova" x="586" y="507">combinado</text>
+  <path class="seta" d="M506,486 L468,486"/>
+
+  <rect class="caixa" x="296" y="440" width="170" height="92" rx="8"/>
+  <text class="nome" x="381" y="470">Medir de Novo</text>
+  <text class="prova" x="381" y="492">reavalia as etapas:</text>
+  <text class="prova" x="381" y="507">nível atualizado</text>
+  <path class="seta" d="M296,486 L264,486"/>
+
+  <polygon class="losango" points="166,418 262,486 166,554 70,486"/>
+  <text class="branco" x="166" y="482" font-size="13">Encerrar</text>
+  <text class="branco" x="166" y="499" font-size="13">o Ciclo?</text>
+
+  <path class="seta" d="M166,554 L166,612"/>
+  <text class="rotulo" x="176" y="588">Sim</text>
+  <rect class="pilula" x="86" y="614" width="160" height="46" rx="23"/>
+  <text class="branco" x="166" y="643" font-size="15">Fim</text>
+  <text class="prova" x="166" y="680">ciclo encerrado, com o</text>
+  <text class="prova" x="166" y="695">nível registrado</text>
+
+  <path class="volta" d="M70,486 L40,486 L40,738 L1483,738 L1483,534"/>
+  <text class="rotulo" x="46" y="476">Não</text>
+  <text class="rotulo" x="760" y="730" text-anchor="middle">novo ciclo: volta ao fim do caminho, com o nível atualizado</text>
+
+  <!-- Legenda -->
+  <path d="M1180,776 L1232,776" stroke="#16a34a" stroke-width="2.2" marker-end="url(#ponta)"/>
+  <text class="nota" x="1242" y="780">segue</text>
+  <path d="M1320,776 L1372,776" stroke="#16a34a" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#ponta)"/>
+  <text class="nota" x="1382" y="780">volta</text>
+  <rect class="caixa" x="1460" y="766" width="22" height="18" rx="4"/>
+  <text class="nota" x="1490" y="780">etapa ou passo</text>
+</svg>
+<div class="rodape">Documento de estudo da Aceleração 365. Não é o aplicativo. Fluxo validado em 6 de novembro de 2026, com as provas no padrão de levantamento e CRM.</div>
+</div>
+</body>
+</html>

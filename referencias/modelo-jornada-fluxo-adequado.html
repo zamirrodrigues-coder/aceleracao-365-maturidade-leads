@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exemplo: Maturidade da Geração de Leads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,700;0,800;1,800&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg0: #0b1422; --bg1: #0f1c30; --panel: #13223a; --panel2: #182b47;
+    --line: rgba(201,162,75,.28); --line2: rgba(255,255,255,.08);
+    --ink: #EAEEF4; --muted: #8c99ad;
+    --gold: #C9A24B; --gold2: #E7C56C; --golddk: #A9863B;
+    --silver: #C7CDD6; --silver2: #EDEFF3; --silverdk: #93a0b2;
+    --green: #56c08a; --red: #e0756a;
+    --fdisp: 'Archivo','Trebuchet MS',system-ui,sans-serif;
+    --fbody: 'Public Sans','Calibri',system-ui,sans-serif;
+    --gold-grad: linear-gradient(135deg,var(--gold2),var(--gold) 55%,var(--golddk));
+    --silver-grad: linear-gradient(135deg,var(--silver2),var(--silver) 55%,var(--silverdk));
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background:
+      repeating-linear-gradient(-45deg, rgba(201,162,75,.04) 0, rgba(201,162,75,.04) 1px, transparent 1px, transparent 90px),
+      radial-gradient(120% 90% at 85% 0%, #1b2d49 0%, #0f1c30 45%, #0b1422 100%);
+    background-color: #0b1422;
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: var(--fbody);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .app { max-width: 560px; margin: 0 auto; min-height: 100%; display: flex; flex-direction: column; }
+  .topbar { display: flex; align-items: center; gap: 10px; padding: 12px 16px 10px; position: sticky; top: 0; z-index: 20; background: linear-gradient(rgba(11,20,34,.92), rgba(11,20,34,0)); backdrop-filter: blur(6px); }
+  .topbar .nm { font-family: var(--fdisp); font-weight: 800; font-size: 14px; letter-spacing: .5px; }
+  .topbar .nm .y { font-style: italic; }
+  .topbar .sp { margin-left: auto; font-size: 12px; color: var(--muted); }
+  .gold-text { background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .silver-text { background: var(--silver-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  main { flex: 1; padding: 6px 16px 40px; }
+
+  h1 { font-family: var(--fdisp); font-weight: 800; font-size: 26px; line-height: 1.12; margin: .2em 0 .1em; text-wrap: balance; }
+  h2 { font-family: var(--fdisp); font-weight: 800; font-size: 19px; margin: 0 0 2px; }
+  h3 { font-family: var(--fdisp); font-weight: 700; font-size: 15px; margin: 0 0 4px; }
+  .eyebrow { font-family: var(--fdisp); text-transform: uppercase; letter-spacing: 2.5px; font-size: 11px; font-weight: 700; color: var(--gold2); }
+  .sub { color: var(--muted); font-size: 15px; margin: 0; }
+
+  .blochead { display: flex; align-items: center; gap: 10px; margin: 22px 0 12px; }
+  .blochead .bar { width: 4px; height: 22px; border-radius: 3px; background: var(--gold-grad); flex: 0 0 auto; }
+  .blochead .lbl { font-family: var(--fdisp); font-weight: 800; font-size: 15.5px; letter-spacing: .3px; }
+  .blochead .bc { margin-left: auto; font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: #0b1422; background: var(--gold-grad); border-radius: 999px; padding: 3px 10px; }
+
+  .block { display: flex; align-items: center; gap: 12px; background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+  .block .bn { width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; font-family: var(--fdisp); font-weight: 800; font-size: 14px; color: #0b1422; background: var(--gold-grad); flex: 0 0 auto; }
+  .block.done .bn { background: var(--silver-grad); }
+  .block .bt { font-family: var(--fdisp); font-weight: 700; font-size: 14.5px; }
+  .block .bs { font-size: 12px; color: var(--muted); }
+  .block.hot { border-color: var(--gold); background: linear-gradient(180deg, rgba(201,162,75,.17), var(--panel)); box-shadow: 0 3px 16px rgba(201,162,75,.14); }
+  .block.hot .bn { box-shadow: 0 0 0 3px rgba(201,162,75,.22); }
+  .block.hot .bt { font-size: 15.5px; }
+  .block.parado { cursor: default; }
+
+  .pill { margin-left: auto; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 4px 9px; border-radius: 999px; white-space: nowrap; }
+  .pill.ok { color: var(--green); border: 1px solid rgba(86,192,138,.4); }
+  .pill.now { color: #0b1422; background: var(--gold-grad); }
+  .pill.soon { color: var(--muted); border: 1px solid var(--line2); }
+
+  .lesson { background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; padding: 14px 16px; margin: 10px 0; }
+  .lesson h3 { color: var(--gold2); }
+  .lesson p { margin: 6px 0 0; font-size: 14px; }
+  .lesson ul { margin: 6px 0 0; padding-left: 18px; font-size: 14px; }
+  .lesson li { margin: 5px 0; }
+  details.oito { margin-top: 10px; }
+  details.oito summary { cursor: pointer; color: var(--gold2); font-weight: 600; font-size: 13.5px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { flex: 1 1 auto; text-align: center; border: 1.5px solid var(--line2); background: rgba(0,0,0,.18); color: var(--ink); border-radius: 11px; padding: 10px 8px; font: inherit; font-weight: 600; font-size: 13.5px; cursor: pointer; transition: .15s; }
+  .chip[aria-pressed="true"] { border-color: var(--gold); background: rgba(201,162,75,.14); color: var(--gold2); }
+  .chips.duas .chip { flex: 1 1 calc(50% - 4px); }
+  .chip small { display: block; margin-top: 1px; font-weight: 400; font-size: 11px; color: var(--muted); }
+  .chips.lista .chip { flex: 1 1 100%; text-align: left; padding: 11px 13px; }
+
+  .btn { font-family: var(--fdisp); font-weight: 700; font-size: 15.5px; border-radius: 13px; padding: 14px 16px; cursor: pointer; border: 1.5px solid transparent; width: 100%; text-align: center; color: #0b1422; background: var(--gold-grad); display: block; margin-top: 10px; text-decoration: none; }
+  .btn.outline { background: transparent; color: var(--gold2); border-color: var(--line); }
+  .btn.ghost { background: transparent; color: var(--muted); border-color: var(--line2); }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; }
+
+  .out { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; text-align: center; margin-top: 12px; }
+  .out .k { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+  .out .big { font-family: var(--fdisp); font-weight: 800; font-size: 30px; color: var(--gold2); margin-top: 3px; }
+  .outnote { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+  .scrimline { color: var(--muted); font-size: 12px; text-align: center; margin-top: 18px; }
+
+  .passos { display: flex; gap: 4px; margin: 14px 0 6px; }
+  .passos span { flex: 1; height: 5px; border-radius: 3px; background: rgba(255,255,255,.1); }
+  .passos span.ok { background: var(--golddk); }
+  .passos span.at { background: var(--gold2); }
+  .trilha { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 6px; margin: 8px 0 14px; font-size: 12.5px; color: var(--muted); }
+  .trilha a { color: var(--gold2); text-decoration: none; font-weight: 600; }
+  .lista { margin-top: 14px; }
+  #painel { scroll-margin-top: 58px; padding-top: 8px; }
+  .res { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line2); font-size: 13.5px; }
+  .res .num { flex: none; width: 22px; color: var(--muted); font-weight: 700; }
+  .res .val { margin-left: auto; font-weight: 700; color: var(--gold2); white-space: nowrap; }
+  .res .val.longo { white-space: normal; text-align: right; max-width: 60%; }
+  .f { margin: 13px 0; }
+  .f .rot { display: block; font-weight: 600; font-size: 14px; margin-bottom: 5px; }
+  .f .hint { display: block; color: var(--muted); font-weight: 400; font-size: 12.5px; }
+  .campo { display: flex; align-items: stretch; gap: 10px; }
+  .campo > input { flex: 1; }
+  input.num { width: 100%; min-width: 0; font: inherit; color: var(--ink); background: rgba(0,0,0,.22); border: 1.5px solid var(--line2); border-radius: 11px; padding: 11px 13px; outline: none; transition: border-color .15s; }
+  input.num:focus { border-color: var(--gold); }
+  input.num:disabled { opacity: .45; }
+  .pre { flex: 1; display: flex; min-width: 0; }
+  .pre .tag { font-weight: 700; color: var(--muted); background: rgba(0,0,0,.25); border: 1.5px solid var(--line2); border-right: 0; border-radius: 11px 0 0 11px; padding: 11px 10px; white-space: nowrap; }
+  .pre input.num { border-radius: 0 11px 11px 0; }
+  .pos { flex: 1; display: flex; min-width: 0; }
+  .pos .tag { font-weight: 700; color: var(--muted); background: rgba(0,0,0,.25); border: 1.5px solid var(--line2); border-left: 0; border-radius: 0 11px 11px 0; padding: 11px 12px; white-space: nowrap; }
+  .pos input.num { border-radius: 11px 0 0 11px; }
+  .ns { flex: none; display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); cursor: pointer; white-space: nowrap; }
+  .ns input { width: 18px; height: 18px; accent-color: var(--gold); }
+  .orig { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 8px; font-size: 12.5px; color: var(--muted); }
+  .orig .chip { flex: none; padding: 6px 12px; font-size: 12.5px; }
+  .grade2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .grade2 .out { margin-top: 0; }
+  .grade2 .out .big { font-size: 21px; }
+  .grade2 .out.larga { grid-column: 1 / -1; }
+  /* Ficha do mentor em cada etapa */
+  .ficha .fi { padding-top: 9px; }
+  .ficha .fi + .fi { margin-top: 9px; border-top: 1px solid var(--line2); }
+  .ficha .fi > b { display: block; font-family: var(--fdisp); font-size: 12.5px; color: var(--muted); }
+  .ficha .fi p, .ficha .fi ul { margin-top: 3px; }
+  .ficha .fi.ent p { color: var(--gold2); font-weight: 600; }
+  .lesson p.perg { font-size: 15px; font-weight: 700; }
+  .lesson p.apoio { color: var(--muted); font-size: 13px; margin-top: 3px; }
+  .trilha b { color: var(--ink); font-weight: 600; }
+  .caminho .nome { display: flex; align-items: center; gap: 8px; }
+  .etiqueta { display: inline-block; margin-left: 8px; padding: 2px 8px; border: 1px solid var(--line2); border-radius: 999px; font: 700 10px/1.4 var(--fbody); letter-spacing: .5px; text-transform: uppercase; color: var(--muted); vertical-align: middle; }
+  .aviso { color: var(--gold2); font-size: 12.5px; margin: 8px 0 0; }
+  .lesson p.cita { margin-top: 8px; padding-left: 10px; border-left: 2px solid var(--line); }
+  .feito { margin-left: 8px; font-size: 11px; font-weight: 700; color: var(--green); white-space: nowrap; }
+  .caminho { background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; padding: 12px 14px; margin: 10px 0; }
+  .caminho.melhor { border-color: var(--gold); background: linear-gradient(180deg, rgba(201,162,75,.17), var(--panel)); }
+  .caminho .nome { font-family: var(--fdisp); font-weight: 700; font-size: 14.5px; }
+  .caminho .det { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+
+  /* Devolutiva de cada tela: o que a resposta significa para o aluno */
+  .lesson.dev { border-color: var(--line); }
+  .lesson.dev p + p { margin-top: 8px; }
+  .barras { margin-top: 10px; }
+  .barras .it { padding: 5px 0; font-size: 13.5px; }
+  .barras .it + .it { border-top: 1px solid var(--line2); }
+  .barras .l { display: flex; justify-content: space-between; gap: 10px; }
+  .barras .barra { height: 6px; border-radius: 4px; background: var(--line); margin-top: 3px; }
+  .barras .barra i { display: block; height: 6px; border-radius: 4px; background: var(--gold2); }
+  .subcampo { margin: -4px 0 12px 18px; padding: 2px 0 6px 14px; border-left: 2px solid var(--line); }
+  .subcampo .f { margin: 4px 0 0; }
+  .perg2 { margin: 22px 0 0; font-size: 17px; }
+
+  /* Ponto de interrogação ao lado de cada termo */
+  .q { flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px; margin-left: 7px; padding: 0; vertical-align: middle; border-radius: 50%; border: 1.5px solid var(--line); background: rgba(201,162,75,.1); color: var(--gold2); font: 700 13px/1 var(--fdisp); cursor: pointer; }
+  .q:hover { background: rgba(201,162,75,.24); }
+  h1 .q { position: relative; top: -3px; }
+  .qi { display: inline-grid; place-items: center; width: 18px; height: 18px; margin-left: 6px; border-radius: 50%; border: 1.5px solid var(--line); color: var(--gold2); font: 700 11px/1 var(--fdisp); vertical-align: middle; }
+  .nometermo { display: flex; align-items: center; flex-wrap: wrap; margin: 10px 0 0; font-size: 13.5px; color: var(--muted); }
+  .nometermo b { color: var(--ink); margin-left: 4px; }
+  .lesson h3 .q { margin-left: 8px; }
+
+  /* Opções com termo e explicação */
+  .opcao { display: flex; align-items: center; background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; padding: 4px 12px 4px 4px; margin-bottom: 10px; }
+  .opcao.sel { border-color: var(--gold); background: linear-gradient(180deg, rgba(201,162,75,.17), var(--panel)); }
+  .opcao .alvo { flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; background: none; border: 0; border-radius: 10px; padding: 8px 10px; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+  .opcao .bt { display: block; font-family: var(--fdisp); font-weight: 700; font-size: 14.5px; }
+  .opcao .bs { display: block; font-size: 12px; color: var(--muted); }
+  .marca { flex: none; width: 22px; height: 22px; border-radius: 6px; border: 1.5px solid rgba(255,255,255,.22); display: grid; place-items: center; font-size: 14px; font-weight: 700; line-height: 1; color: #0b1422; }
+  .marca.bola { border-radius: 50%; }
+  .opcao.sel .marca { background: var(--gold-grad); border-color: transparent; }
+  .grupo { display: flex; align-items: center; margin: 18px 0 8px; font-family: var(--fdisp); font-weight: 700; font-size: 14.5px; }
+  .chipsq { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .chipq { display: flex; align-items: center; min-width: 0; border: 1.5px solid var(--line2); background: rgba(0,0,0,.18); border-radius: 11px; padding-right: 8px; }
+  .chipq.sel { border-color: var(--gold); background: rgba(201,162,75,.14); }
+  .chipq .alvo { flex: 1; min-width: 0; background: none; border: 0; border-radius: 9px; color: var(--ink); font: inherit; font-weight: 600; font-size: 13px; text-align: left; padding: 10px 4px 10px 11px; cursor: pointer; }
+  .chipq.sel .alvo { color: var(--gold2); }
+  .chipq .q { margin-left: 2px; }
+  .rotl { display: flex; align-items: center; }
+  .rotl .rot { margin-bottom: 0; }
+  .f .hint { margin: 2px 0 0; }
+  .f .campo { margin-top: 7px; }
+  .res > span:nth-child(2) { display: flex; align-items: center; flex-wrap: wrap; }
+
+  /* Folha que sobe com a explicação do termo */
+  .scrim { position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 30; }
+  .folha { position: fixed; left: 0; right: 0; bottom: 0; z-index: 31; display: flex; justify-content: center; }
+  .folha-in { width: 100%; max-width: 560px; max-height: 82vh; overflow-y: auto; background: linear-gradient(180deg, var(--panel2), var(--panel)); border: 1px solid var(--line); border-bottom: 0; border-radius: 18px 18px 0 0; padding: 18px 18px 22px; box-shadow: 0 -10px 40px rgba(0,0,0,.45); }
+  .folha-in p { margin: 8px 0 0; font-size: 14.5px; }
+  .folha-in h3 { margin: 14px 0 0; color: var(--gold2); }
+  .folha-in ul { margin: 6px 0 0; padding-left: 18px; font-size: 14px; }
+  .folha-in ol { margin: 6px 0 0; padding-left: 20px; font-size: 14px; }
+  .folha-in li { margin: 5px 0; }
+
+  .reveal { animation: rise .4s cubic-bezier(.2,.7,.3,1) both; }
+  @keyframes rise { 0% { opacity: 0; transform: translateY(12px); } 100% { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .reveal { animation: none; } }
+
+  .mom { margin: 22px 0 6px; font-family: var(--fdisp); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .mom b { color: var(--gold2); }
+  .nums { display: flex; gap: 10px; margin-top: 4px; }
+  .nums div { flex: 1; text-align: center; padding: 6px 0; }
+  .nums .v { font-family: var(--fdisp); font-weight: 800; font-size: 30px; color: var(--ink); line-height: 1.1; }
+  .nums .m .v { color: var(--gold2); }
+  .nums .r { font-size: 12px; color: var(--muted); }
+  .tem { list-style: none; padding: 0 !important; }
+  .tem li { padding-left: 22px; position: relative; }
+  .tem li::before { content: "✓"; position: absolute; left: 2px; color: var(--green); font-weight: 700; }
+  .rodape { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line2); font-size: 12.5px; color: var(--muted); }
+  .rodape .pill { margin-left: 0; }
+  .aten { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line2); font-size: 14px; }
+  .aten:last-of-type { border-bottom: 0; }
+  .aten b { display: block; }
+  .aten span.t { color: var(--muted); font-size: 13px; }
+  .aten .pill { align-self: center; }
+  .lesson.foco { border-color: var(--gold); background: linear-gradient(180deg, rgba(201,162,75,.17), var(--panel)); box-shadow: 0 3px 16px rgba(201,162,75,.14); }
+  .lesson.foco h3 { font-size: 19px; color: var(--ink); }
+  .lesson.foco .et { font-size: 12px; color: var(--gold2); font-weight: 700; text-transform: uppercase; letter-spacing: .6px; }
+  .aqui { font-size: 12px; color: var(--muted); margin-top: -6px; }
+  details.camada { margin-top: 14px; border: 1px solid var(--line2); border-radius: 14px; padding: 12px 16px; background: var(--panel); }
+  details.camada summary { cursor: pointer; font-weight: 700; color: var(--gold2); }
+  details.camada p { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="nm"><span class="silver-text">ACELERAÇÃO</span> <span class="gold-text y">365</span></div>
+    <div class="sp">Modelo da jornada</div>
+  </div>
+  <main id="main">
+    <div style="margin-top:14px"><button type="button" class="btn ghost" style="width:auto;padding:8px 14px;margin:0">← Jornada</button></div>
+    <div class="eyebrow" style="margin-top:14px">Resultado</div><h1>Seu Fluxo Adequado <button type="button" class="q">?</button></h1>
+    <p class="sub">Onde a sua empresa está e por onde começar.</p>
+    <div class="passos" aria-hidden="true"><span class="ok"></span><span class="at"></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <p class="aqui">Você está na Etapa 2 de 8.</p>
+
+    <div class="mom"><b>01</b> · Sua Meta</div>
+    <div class="lesson">
+      <div class="nums"><div><div class="v">18</div><div class="r">clientes novos por mês hoje (estimativa)</div></div><div class="m"><div class="v">30</div><div class="r">a sua meta por mês</div></div></div>
+      <p style="text-align:center">Faltam <b>12 clientes novos por mês</b>.</p>
+    </div>
+
+    <div class="mom"><b>02</b> · O Que Você Já Tem</div>
+    <div class="lesson">
+      <p><b>Você já começou.</b></p>
+      <ul class="tem"><li>Uma meta mensal escrita.</li><li>A ficha no Google, ativa.</li><li>Parte dos contatos registrada no CRM.</li><li>Um critério escrito para o contato interessado.</li><li>Um relatório todo mês, ainda só com o total.</li></ul>
+      <div class="rodape"><span class="pill soon">Nível 1 de 5 · Improviso</span><span>1 etapa de pé, 7 em parte</span><button type="button" class="q">?</button></div>
+    </div>
+
+    <div class="mom"><b>03</b> · O Que Pede Atenção</div>
+    <div class="lesson">
+      <div class="aten"><div><b>De onde vêm os clientes</b><span class="t">Está só na memória.</span></div><span class="pill now">comece aqui</span></div>
+      <div class="aten"><div><b>Sua ficha no Google</b><span class="t">Falta completar o perfil, publicar e responder às avaliações.</span></div></div>
+      <div class="aten"><div><b>Porta de entrada</b><span class="t">A rota leva ao lugar, mas falta a foto da fachada.</span></div></div>
+      <div class="outnote">Mais 4 pontos no diagnóstico completo.</div>
+    </div>
+
+    <div class="mom"><b>04</b> · Seu Próximo Passo</div>
+    <div class="lesson foco">
+      <div class="et">Etapa 2: Pilar <button type="button" class="q">?</button></div>
+      <h3>Descubra de onde vêm os seus clientes</h3>
+      <p>Antes de decidir onde pôr esforço, confira de onde vem cada cliente.</p>
+      <p><b>Esta semana:</b> comece o levantamento dos clientes novos dos últimos três meses, cliente por cliente. Quem você não souber, registre como não identificado.</p>
+      <p><b>Leve ao mentor:</b> o levantamento ou o relatório de origem do CRM.</p>
+      <p><b>Em paralelo, se quiser:</b> inclua a foto da fachada e responda às avaliações sem resposta.</p>
+      <p><b>Depois:</b> sua ficha no Google, e então a porta de entrada.</p>
+    </div>
+
+    <details class="camada"><summary>Meu Diagnóstico Completo</summary><p>Mapa de origem dos clientes, as oito etapas, os números do caminho, a leitura das duas medidas e como o app chega a isto.</p></details>
+    <button type="button" class="btn outline">Avaliar outro caminho</button>
+    <button type="button" class="btn ghost">Voltar à Jornada</button>
+    <p class="scrimline">No aplicativo, o mentor recebe o diagnóstico completo e confirma o próximo passo no atendimento.</p>
+  </main>
+</div>
+</body></html>
